@@ -61,7 +61,10 @@ module.exports = {
 		maxLimit: -1,
 
 		/** @type {Object|Function} Validator schema or a function to validate the incoming entity in `create` & 'insert' actions. */
-		entityValidator: null
+		entityValidator: null,
+
+		/**@type {string} Default action visibility */
+		visibility: null
 	},
 
 	/**
@@ -86,6 +89,7 @@ module.exports = {
 		 * @returns {Array<Object>} List of found entities.
 		 */
 		find: {
+			visibility: this.settings.visibility,
 			cache: {
 				keys: ["populate", "fields", "limit", "offset", "sort", "search", "searchFields", "query"]
 			},
@@ -130,6 +134,7 @@ module.exports = {
 		 * @returns {Number} Count of found entities.
 		 */
 		count: {
+			visibility: this.settings.visibility,
 			cache: {
 				keys: ["search", "searchFields", "query"]
 			},
@@ -168,6 +173,7 @@ module.exports = {
 		 * @returns {Object} List of found entities and count with pagination info.
 		 */
 		list: {
+			visibility: this.settings.visibility,
 			cache: {
 				keys: ["populate", "fields", "page", "pageSize", "sort", "search", "searchFields", "query"]
 			},
@@ -210,6 +216,7 @@ module.exports = {
 		 * @returns {Object} Saved entity.
 		 */
 		create: {
+			visibility: this.settings.visibility,
 			rest: "POST /",
 			handler(ctx) {
 				let params = ctx.params;
@@ -228,6 +235,7 @@ module.exports = {
 		 * @returns {Object|Array<Object>} Saved entity(ies).
 		 */
 		insert: {
+			visibility: this.settings.visibility,
 			params: {
 				entity: { type: "object", optional: true },
 				entities: { type: "array", optional: true }
@@ -254,6 +262,7 @@ module.exports = {
 		 * @throws {EntityNotFoundError} - 404 Entity not found
 		 */
 		get: {
+			visibility: this.settings.visibility,
 			cache: {
 				keys: ["id", "populate", "fields", "mapping"]
 			},
@@ -293,6 +302,7 @@ module.exports = {
 		 * @throws {EntityNotFoundError} - 404 Entity not found
 		 */
 		update: {
+			visibility: this.settings.visibility,
 			rest: "PUT /:id",
 			handler(ctx) {
 				let params = ctx.params;
@@ -311,6 +321,7 @@ module.exports = {
 		 * @throws {EntityNotFoundError} - 404 Entity not found
 		 */
 		remove: {
+			visibility: this.settings.visibility,
 			rest: "DELETE /:id",
 			params: {
 				id: { type: "any" }

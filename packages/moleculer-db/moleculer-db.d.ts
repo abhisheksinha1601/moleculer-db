@@ -1,4 +1,4 @@
-declare module "moleculer-db" {
+declare module "dn-moleculer-db" {
   import { Context, ServiceBroker, Service } from "moleculer";
 
   export interface DbServiceSettings {
